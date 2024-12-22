@@ -23,14 +23,14 @@ DEFAULT_DETECT_IMAGE = IMAGES_DIR / 'CENAR_detected.png'
 # Videos config
 VIDEO_DIR = ROOT / 'videos'
 VIDEOS_DICT = {
-    'video_1': VIDEO_DIR / 'ComLab1.mp4',
-    'video_2': VIDEO_DIR / 'video_2.mp4',
-    'video_3': VIDEO_DIR / 'video_3.mp4',
+    'Computer Lab 1': VIDEO_DIR / 'ComLab1.mp4',
+    'Computer Setup': VIDEO_DIR / 'Computer Setup.mp4',
+    'NI Elvis': VIDEO_DIR / 'NI Elvis.mp4',
 }
 
 # ML Model config
 MODEL_DIR = ROOT / 'weights'
-DETECTION_MODEL = MODEL_DIR / 'first.pt'
+DETECTION_MODEL = MODEL_DIR / 'codi5best.pt'
 
 # Webcam
-WEBCAM_PATH = 0
+WEBCAM_PATH = 2
