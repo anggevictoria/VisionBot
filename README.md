@@ -1,44 +1,22 @@
-# <span style="color:deepskyblue"> Real-time Object Detection and Tracking with YOLOv8 & Streamlit </span>
+# <span style="color:deepskyblue"> VISIONBOT </span>
 
-This repository is an extensive open-source project showcasing the seamless integration of **object detection and tracking** using **YOLOv8** (object detection algorithm), along with **Streamlit** (a popular Python web application framework for creating interactive web apps). The project offers a user-friendly and customizable interface designed to detect and track objects in real-time video streams from sources such as RTSP, UDP, and YouTube URLs, as well as static videos and images.
+This website titled VISIONBOT is a web application that merges real-time object detection with conversational AI, creating a dynamic and interactive user experience. This project draws inspiration from two open-source projects:
+
+Object Detection and Tracking with YOLOv8 and Streamlit - A seamless integration of YOLOv8, a leading object detection algorithm, with Streamlit, a Python web application framework for building intuitive and interactive web apps. Explore the original project here: https://github.com/rampal-punia/yolov8-streamlit-detection-tracking.git 
+
+Streaming Local LLM Responses with LM Studio - A powerful implementation of local Large Language Model (LLM) responses via the LM Studio Inference Server, enabling responsive, privacy-focused AI interactions. Explore the original project here: https://github.com/ingridstevens/AI-projects.git 
 
 
-## <span style="color:deepskyblue">Explore Implementation Details on Medium (3 parts blog series) </span>
-For a deeper dive into the implementation, check out my three-part blog series on [Medium](https://medium.com/@mycodingmantras), where I detail the [step-by-step process of creating this web application](https://medium.com/@mycodingmantras/building-a-real-time-object-detection-and-tracking-app-with-yolov8-and-streamlit-part-1-30c56f5eb956).
-
+## <span style="color:deepskyblue">DEMO</span>
+https://drive.google.com/file/d/1ZmW1NGMcfEYOIWeJ5Yx4Q3m8TBiYMknD/view?usp=sharing 
 
 ## <span style="color:deepskyblue">WebApp Demo on Streamlit Server</span>
-
-Thank you team [Streamlit](<https://github.com/streamlit/streamlit>) for the community support for the cloud upload. 
 
 This app is up and running on Streamlit cloud server!!! You can check the demo of this web application on this link 
 [yolov8-streamlit-detection-tracking-webapp](https://yolov8-object-detection-and-tracking-app.streamlit.app/)
 
-**Note**: In the demo, Due to non-availability of GPUs, you may encounter slow video inferencing.
+**Note**: In the demo, Due to large size of custom model, cocodataset was used but you can find the custom model used in the demo here: 
 
-
-## <span style="color:deepskyblue"> Tracking With Object Detection Demo</span>
-
-<https://user-images.githubusercontent.com/104087274/234874398-75248e8c-6965-4c91-9176-622509f0ad86.mov>
-
-## Overview
-
-<https://github.com/user-attachments/assets/85df351a-371c-47e0-91a0-a816cf468d19.mov>
-
-
-## Demo Pics
-
-### Home page
-
-<img src="https://github.com/CodingMantras/yolov8-streamlit-detection-tracking/blob/master/assets/pic1.png" >
-
-### Page after uploading an image and object detection
-
-<img src="https://github.com/CodingMantras/yolov8-streamlit-detection-tracking/blob/master/assets/pic3.png" >
-
-### Segmentation task on image
-
-<img src="https://github.com/CodingMantras/yolov8-streamlit-detection-tracking/blob/master/assets/segmentation.png" >
 
 ## Requirements
 
@@ -61,14 +39,6 @@ pip install ultralytics streamlit pytube
 
 - Run the app with the following command: `streamlit run app.py`
 - The app should open in a new browser window.
-
-### ML Model Config
-
-- Select task (Detection, Segmentation)
-- Select model confidence
-- Use the slider to adjust the confidence threshold (25-100) for the model.
-
-One the model config is done, select a source.
 
 ### Detection on images
 
@@ -112,14 +82,6 @@ VIDEOS_DICT = {
 
 - Select the RTSP stream button
 - Enter the rtsp url inside the textbox and hit `Detect Objects` button
-
-### Detection on YouTube Video URL
-
-- Select the source as YouTube
-- Copy paste the url inside the text box.
-- The detection/segmentation task will start on the YouTube video url
-
-<https://user-images.githubusercontent.com/104087274/226178296-684ad72a-fe5f-4589-b668-95c835cd8d8a.mov>
 
 ## Acknowledgements
 
