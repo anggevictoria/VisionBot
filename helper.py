@@ -18,6 +18,35 @@ def load_model(model_path):
     model = YOLO(model_path)
     return model
 
+last_name = ""  # Initialize to an empty string or None, depending on your needs
+
+def process_detected_objects(res, model):
+    global last_name  # Access the global last_name variable
+    msg = st.empty()
+
+    detected_objects_set = set()
+    try:
+        for box in res[0].boxes:
+            class_id = int(box.data[0][5])  # Extract class ID
+            object_name = model.names[class_id]  # Map class ID to name
+
+            detected_objects_set.add(object_name)
+
+            # Check if the object is different from the last detected object
+            if object_name != last_name:
+                #empty container to hold the message
+
+                # Generate the description and display it
+                description = generate_description(object_name)
+                msg.write(f"{object_name} detected. {description}")
+                
+                
+                # Update last_name to the current object_name
+                last_name = object_name
+
+    except Exception as ex:
+        st.error(f"An error occurred while processing the detected objects: {str(ex)}")
+
 
 def _display_detected_frames(conf, model, st_frame, image):
     """
@@ -28,26 +57,27 @@ def _display_detected_frames(conf, model, st_frame, image):
     - model (YoloV8): A YOLOv8 object detection model.
     - st_frame (Streamlit object): A Streamlit object to display the detected video.
     - image (numpy array): A numpy array representing the video frame.
-    - is_display_tracking (bool): A flag indicating whether to display object tracking (default=None).
 
     Returns:
     None
     """
-
-    # Resize the image to a standard size
-    image = cv2.resize(image, (720, int(720*(9/16))))
-
-   
-    # Predict the objects in the image using the YOLOv8 model
+    # Resize and predict
+    image = cv2.resize(image, (720, int(720 * (9 / 16))))
     res = model.predict(image, conf=conf)
 
-    # # Plot the detected objects on the video frame
+    # Plot detections
     res_plotted = res[0].plot()
-    st_frame.image(res_plotted,
-                   caption='Detected Video',
-                   channels="BGR",
-                   use_container_width=True
-                   )
+    st_frame.image(
+        res_plotted,
+        caption='Detected Video',
+        channels="BGR",
+        use_container_width=True
+    )
+
+    # Call the process_detected_objects function to handle detection logic
+    process_detected_objects(res, model)
+
+
 
 def play_rtsp_stream(conf, model):
     """
@@ -101,7 +131,7 @@ def play_webcam(conf, model):
         None
     """
     source_webcam = settings.WEBCAM_PATH
-    if st.sidebar.button('Detect Objects'):
+    if st.button('Detect Objects'):
         try:
             vid_cap = cv2.VideoCapture(source_webcam)
             st_frame = st.empty()
@@ -178,7 +208,7 @@ def generate_description(object_name: str) -> str:
     api_url = "http://127.0.0.1:1234/v1/completions"
     payload = {
         "model": "gemma-2-2b-it",
-        "prompt": f"Provide a simple description of {object_name} to a child in one sentence.",
+        "prompt": f"Provide a computer engineering description of {object_name} in one sentence.",
         "temperature": 0.6,
         "max_tokens": 50
     }
