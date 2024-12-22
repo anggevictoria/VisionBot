@@ -183,34 +183,40 @@ def generate_description(object_name: str) -> str:
         return error_message
 
 def get_response(user_query, chat_history):
-    # Modify the response to include a description generation example
-    if "describe" in user_query.lower():
-        object_name = user_query.split("describe")[-1].strip()
-        description = generate_description(object_name)
-        return f"Here is a brief description of {object_name}: {description}"
+    try: 
+        # Modify the response to include a description generation example
+        if "describe" in user_query.lower():
+            object_name = user_query.split("describe")[-1].strip()
+            description = generate_description(object_name)
+            return f"Here is a brief description of {object_name}: {description}"
+        
+        
 
-    template = """
-    You are a helpful assistant. Use the chat history if it helps, otherwise ignore it:
 
-    Chat history: {chat_history}
+        template = """
+        You are a helpful assistant. Use the chat history if it helps, otherwise ignore it:
 
-    User response: {user_question}
-    """
+        Chat history: {chat_history}
 
-    prompt = ChatPromptTemplate.from_template(template)
+        User response: {user_question}
+        """
 
-    # Using LM Studio Local Inference Server
-    llm = ChatOpenAI(openai_base_url="http://192.168.55.101:1234/v1/models")
+        prompt = ChatPromptTemplate.from_template(template)
 
-    chain = prompt | llm | StrOutputParser()
+        # Using LM Studio Local Inference Server
+        llm = ChatOpenAI(openai_base_url="http://192.168.55.101:1234/v1/models")
 
-    return chain.stream({
-        "chat_history": chat_history,
-        "user_question": user_query,
-    })
+        chain = prompt | llm | StrOutputParser()
 
+        return chain.stream({
+            "chat_history": chat_history,
+            "user_question": user_query,
+        })
+    
+    except Exception as ex:
+            st.error("Error occurred. Please include a word 'describe' on your query.")
 # user input (placed before session state)
-user_query = st.sidebar.text_input("Type your message here...")
+user_query = st.sidebar.text_input("Type your query here. Please include a word 'describe' ...")
 
 # session state
 if "chat_history" not in st.session_state:
