@@ -30,7 +30,7 @@ VIDEOS_DICT = {
 
 # ML Model config
 MODEL_DIR = ROOT / 'weights'
-DETECTION_MODEL = MODEL_DIR / 'codi5best.pt'
+DETECTION_MODEL = MODEL_DIR / 'yolov8n'
 
 # Webcam
 WEBCAM_PATH = 2
