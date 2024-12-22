@@ -1,3 +1,0 @@
-Create function sends data processed by yolov8 to lm studio 
-Create function that recieves text description from lm studio (use gemini)
-Create UI as container of that description
